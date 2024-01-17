@@ -169,14 +169,14 @@ class ilUserDefaultsPlugin extends ilEventHookPlugin {
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
-		self::dic()->database()->dropTable(UDFCheckOld::TABLE_NAME, false);
+		self::dic()->databaseCore()->dropTable(UDFCheckOld::TABLE_NAME, false);
 		foreach (UDFCheck::$class_names as $class) {
-			self::dic()->database()->dropTable($class::TABLE_NAME, false);
+			self::dic()->databaseCore()->dropTable($class::TABLE_NAME, false);
 		}
-		self::dic()->database()->dropTable(UserSetting::TABLE_NAME, false);
-		//self::dic()->database()->dropTable(usrdefUser::TABLE_NAME, false);
-		//self::dic()->database()->dropTable(usrdefObj::TABLE_NAME, false);
-		self::dic()->database()->dropTable(UserDefaultsConfig::TABLE_NAME, false);
+		self::dic()->databaseCore()->dropTable(UserSetting::TABLE_NAME, false);
+		//self::dic()->databaseCore()->dropTable(usrdefUser::TABLE_NAME, false);
+		//self::dic()->databaseCore()->dropTable(usrdefObj::TABLE_NAME, false);
+		self::dic()->databaseCore()->dropTable(UserDefaultsConfig::TABLE_NAME, false);
 	}
 
 

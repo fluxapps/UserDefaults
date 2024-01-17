@@ -63,9 +63,9 @@ class ilContainerMultiSelectInputGUI extends ilMultiSelectSearchInput2GUI {
         $result = array();
         if ($this->multiple) {
             $query = "SELECT obj_id, title FROM " . usrdefObj::TABLE_NAME . " WHERE type = '" . $this->getContainerType() . "' AND " .
-                self::dic()->database()->in("obj_id", $this->getValue(), false, "integer");
-            $res = self::dic()->database()->query($query);
-            while ($row = self::dic()->database()->fetchAssoc($res)) {
+                self::dic()->databaseCore()->in("obj_id", $this->getValue(), false, "integer");
+            $res = self::dic()->databaseCore()->query($query);
+            while ($row = self::dic()->databaseCore()->fetchAssoc($res)) {
                 $title = $row["title"];
                 if ($this->with_parent) {
                     $ref_id = array_shift(ilObject::_getAllReferences($row["obj_id"]));
@@ -75,9 +75,9 @@ class ilContainerMultiSelectInputGUI extends ilMultiSelectSearchInput2GUI {
             }
         } else {
             $query = "SELECT obj_id, title FROM " . usrdefObj::TABLE_NAME . " WHERE type = '" . $this->getContainerType() . "' AND " .
-                self::dic()->database()->equals("obj_id", $this->getValue(),"integer");
-            $res = self::dic()->database()->query($query);
-            if ($row = self::dic()->database()->fetchAssoc($res)) {
+                self::dic()->databaseCore()->equals("obj_id", $this->getValue(),"integer");
+            $res = self::dic()->databaseCore()->query($query);
+            if ($row = self::dic()->databaseCore()->fetchAssoc($res)) {
                 $title = $row["title"];
                 if ($this->with_parent) {
                     $ref_id = array_shift(ilObject::_getAllReferences($row["obj_id"]));

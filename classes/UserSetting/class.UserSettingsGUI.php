@@ -243,16 +243,16 @@ class UserSettingsGUI {
 				  LEFT JOIN object_translation AS trans ON trans.obj_id = obj.obj_id
 				  JOIN object_reference AS ref ON obj.obj_id = ref.obj_id
 			      WHERE obj.type = %s
-			      AND (" . self::dic()->database()->like("obj.title", "text", "%%" . $term . "%%") . " OR " . self::dic()->database()
+			      AND (" . self::dic()->databaseCore()->like("obj.title", "text", "%%" . $term . "%%") . " OR " . self::dic()->databaseCore()
 				->like("trans.title", "text", $term, "%%" . $term . "%%") . ")
-				" . (!empty($courses) ? "AND " . self::dic()->database()->in("ref.ref_id", $courses, false, "integer") : "") . "
+				" . (!empty($courses) ? "AND " . self::dic()->databaseCore()->in("ref.ref_id", $courses, false, "integer") : "") . "
 				  AND obj.title != %s
 				  AND ref.deleted IS NULL
 			      ORDER BY obj.title";
 		$types = [ "text", "text" ];
 		$values = [ $type, "__OrgUnitAdministration" ];
 
-		$result = self::dic()->database()->queryF($query, $types, $values);
+		$result = self::dic()->databaseCore()->queryF($query, $types, $values);
 
 		$courses = [];
 		if ($with_empty) {
@@ -338,16 +338,16 @@ class UserSettingsGUI {
 				  LEFT JOIN object_translation AS trans ON trans.obj_id = obj.obj_id
 				  JOIN object_reference AS ref ON obj.obj_id = ref.obj_id
 			      WHERE obj.type = %s
-			      AND (" . self::dic()->database()->like("obj.title", "text", "%%" . $term . "%%") . " OR " . self::dic()->database()
+			      AND (" . self::dic()->databaseCore()->like("obj.title", "text", "%%" . $term . "%%") . " OR " . self::dic()->databaseCore()
 				->like("trans.title", "text", $term, "%%" . $term . "%%") . ")
-				" . (!empty($categories) ? "AND " . self::dic()->database()->in("ref.ref_id", $categories, false, "integer") : "") . "
+				" . (!empty($categories) ? "AND " . self::dic()->databaseCore()->in("ref.ref_id", $categories, false, "integer") : "") . "
 				  AND obj.title != %s
 				  AND ref.deleted IS NULL
 			      ORDER BY obj.title";
 		$types = [ "text", "text" ];
 		$values = [ $type, "__OrgUnitAdministration" ];
 
-		$result = self::dic()->database()->queryF($query, $types, $values);
+		$result = self::dic()->databaseCore()->queryF($query, $types, $values);
 
 		$categories = [];
 		while (($row = $result->fetchAssoc()) !== false) {
